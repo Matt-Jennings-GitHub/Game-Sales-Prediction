@@ -1,0 +1,20 @@
+Create new google cloud project
+Enable Cloud ML Engine API
+Download Google Cloud SDK
+
+Command Line:
+gcloud init
+
+Export model with model_builder
+Upload model files to bucket, then create google cloud ml model from uploaded files
+
+Command Line to folder containing exported model
+gcloud config set project tensorflow-class-249022
+gsutil mb -l us-central1 gs://tensorflow-class-33333 #Create bucket
+gsutil cp -R exported_model/* gs://tensorflow-class-33333/earnings_v1/ #Upload model
+gcloud ml-engine models create earnings --regions us-central1 #Create empty model named "earnings"
+gcloud ml-engine versions create v1 --model=earnings --origin=gs://tensorflow-class-33333/earnings_v1/ #Create first version of model
+gcloud ml-engine predict --model=earnings --json-instances=sample_input_prescaled.json #Make prediction
+
+For Python API (or other program):
+Get Credentials; Service Account, Compute Engine Default Service Account, Role:Veiwer

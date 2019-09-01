@@ -1,0 +1,18 @@
+Create new google cloud project
+Enable Cloud ML Engine API
+Download Google Cloud SDK
+
+Command Line:
+gcloud init
+
+Export model with model_builder
+Upload model files to bucket, then create google cloud ml model from uploaded files
+
+Command Line to folder containing exported model
+gsutil mb -l us-central1 gs://keras-class-3333 #Create bucket
+gsutil cp -R exported_model/* gs://keras-class-3333/earnings_v1/ #Upload model
+gcloud ml-engine models create earnings --regions us-central1 #Create empty model named "earnings"
+gcloud ml-engine versions create v1 --model=earnings --origin=gs://keras-class-3333/earnings_v1/ #Create first version of model
+gcloud ml-engine predict --model=earnings --json-instances=sample_input_prescaled.json #Make prediction
+
+Get Credentials; Service Account, New Service Account, Role:Veiwer
